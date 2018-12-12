@@ -1,6 +1,6 @@
 from sense_hat import SenseHat
 import time
-
+import random
 sense=SenseHat()
 sense.clear()
 
@@ -11,16 +11,21 @@ sense.set_pixel(ball_x,ball_y,132,32,84)
 
 x_sens=1
 y_sens=-1
+touch=0
 
 def ball_bouge():
   global ball_x
   global ball_y
+  global touch
   time.sleep(0.5)
   sense.clear()
   ball_x=ball_x+x_sens
   ball_y=ball_y+y_sens
   sense.set_pixel(ball_x,ball_y,132,32,84)
-  
+  if touch==1:
+    rdm=random.randint(-1,1)
+    ball_x=ball_x+rdm
+    touch=0
 bacx=4
 
 sense.set_pixel(bacx,7,132,32,87)
@@ -58,6 +63,7 @@ while continuer:
     y_sens=1
   if (ball_y==6 and (ball_x==bacx or ball_x==(bacx+1) or ball_x==(bacx-1))):
     y_sens=-1
+    touch=1
   if (ball_y==6) and (ball_x!=bacx and ball_x!=(bacx+1) and ball_x!=(bacx-1)):
     sense.clear()
     sense.show_message("Perdu")
