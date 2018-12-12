@@ -16,9 +16,36 @@ sense.set_pixel(bacxh,7,132,32,87)
 sense.set_pixel(bacx,7,132,32,87)
 sense.set_pixel(bacxb,7,132,32,87)
 
-def bach():
-	if (bacx>0):
+def bup():
+	global bacx
+	global bacxh
+	global bacxb
+	if (bacx>1):
+
 		bacx-=1
+		bacxh=bacx-1
+		bacxb=bacx+1
+		sense.clear()
+		sense.set_pixel(bacxh,7,132,32,87)
+		sense.set_pixel(bacx,7,132,32,87)
+		sense.set_pixel(bacxb,7,132,32,87)
+		sense.set_pixel(ball_x,ball_y,132,32,84)
+	
+def bdown():
+	global bacx
+	global bacxh
+	global bacxb
+	if (bacx<6):
+
+		bacx+=1
+		bacxh=bacx-1
+		bacxb=bacx+1
+		sense.clear()
+		sense.set_pixel(bacxh,7,132,32,87)
+		sense.set_pixel(bacx,7,132,32,87)
+		sense.set_pixel(bacxb,7,132,32,87)
+		sense.set_pixel(ball_x,ball_y,132,32,84)
+
 
 time.sleep(1)
 
@@ -77,57 +104,76 @@ continuer=True
 
 while continuer:
 
-	for event in sense.stick.get_events():
-		while (ballbds==1):
-			ballbd()
-			ball_bouge()
-			time.sleep(0.5)
-			if (ball_x==7 and ball_y!=0):
-				ballbds=0
-				ballhds=1
-			if (ball_y==0 and ball_x!=7):
-				ballbds=0
-				ballbgs=1
-			if (ball_x==7 and ball_y==0):
-				ballbds=0
-				ballhgs=1
-		while (ballhds==1):
-			ballhd()
-			ball_bouge()
-			time.sleep(0.5)
-			if (ball_x==0 and ball_y!=0):
-				ballhds=0
-				ballbds=1
-			if (ball_y==0 and ball_x!=0):
-				ballhds=0
-				ballhgs=1
-			if (ball_x==0 and ball_y==0):
-				ballhds=0
-				ballbgs=1
-		while (ballhgs==1):
-			ballhg()
-			ball_bouge()
-			time.sleep(0.5)
-			if (ball_y==7):
-				continuer=False
-			if (ball_x==0 and ball_y!=7):
-				ballhgs=0
-				ballbgs=1
-		while (ballbgs==1):
-			ballbg()
-			ball_bouge()
-			time.sleep(0.5)
-			if (ball_y==7):
-				continuer=False
-			if (ball_x==7 and ball_y!=7):
-				ballbgs=0
-				ballhds=1
-		if event.direction=="up":
-			bacx-=1
-			bacxh=bacx-1
-			bacxb=bacx+1
-			sense.clear()
-			sense.set_pixel(bacxh,7,132,32,87)
-			sense.set_pixel(bacx,7,132,32,87)
-			sense.set_pixel(bacxb,7,132,32,87)
-			sense.set_pixel(ball_x,ball_y,132,32,84)
+	
+	if (ballbds==1):
+		ballbd()
+		ball_bouge()
+		time.sleep(0.5)
+		if (ball_x==7 and ball_y!=0):
+			ballbds=0
+			ballhds=1
+		if (ball_y==0 and ball_x!=7):
+			ballbds=0
+			ballbgs=1
+		if (ball_x==7 and ball_y==0):
+			ballbds=0
+			ballhgs=1
+		for event in sense.stick.get_events():
+			if event.direction=="up":
+				bup()
+			if event.direction=="down":
+				bdown()
+	elif (ballhds==1):
+		ballhd()
+		ball_bouge()
+		time.sleep(0.5)
+		if (ball_x==0 and ball_y!=0):
+			ballhds=0
+			ballbds=1
+		if (ball_y==0 and ball_x!=0):
+			ballhds=0
+			ballhgs=1
+		if (ball_x==0 and ball_y==0):
+			ballhds=0
+			ballbgs=1
+		for event in sense.stick.get_events():
+			if event.direction=="up":
+				bup()
+			if event.direction=="down":
+				bdown()
+	elif (ballhgs==1):
+		ballhg()
+		ball_bouge()
+		time.sleep(0.5)
+		if (ball_y==7):
+			continuer=False
+		if (ball_x==0 and ball_y!=7):
+			ballhgs=0
+			ballbgs=1
+		if (ball_y==5 and (ball_x==bacx or ball_x==bacxh or ball_x==bacxb)):
+			ballhgs=0
+			ballhds=1
+		for event in sense.stick.get_events():
+			if event.direction=="up":
+				bup()
+			if event.direction=="down":
+				bdown()
+	elif (ballbgs==1):
+		time.sleep(0.5)
+		if (ball_y==7):
+			continuer=False
+		if (ball_x==6 and ball_y!=7):
+			ballbgs=0
+			ballhds=1
+		if (ball_y==6 and (ball_x==bacx or ball_x==bacxh or ball_x==bacxb)):
+			ballbgs=0
+			ballbds=1
+		for event in sense.stick.get_events():
+			if event.direction=="up":
+				bup()
+			if event.direction=="down":
+				bdown()
+		
+		ballbg() 
+		ball_bouge()
+	
