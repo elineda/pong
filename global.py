@@ -32,7 +32,7 @@ def ball_bouge():
 	sense.set_pixel(ball_x,ball_y,132,32,84)
 
 
-	
+
 def ballhg():
 	global ball_x
 	global ball_y
@@ -62,7 +62,7 @@ def ballhd():
 	global ball_y
 	ball_x-=1
 	ball_y-=1
-	
+
 sense.set_pixel(ball_x,ball_y,132,32,84)
 
 ballbgs=0
@@ -76,51 +76,52 @@ continuer=True
 
 
 while continuer:
-	while (ballbds==1):
-		ballbd()
-		ball_bouge()
-		time.sleep(0.5)
-		if (ball_x==7 and ball_y!=0):
-			ballbds=0
-			ballhds=1
-		if (ball_y==0 and ball_x!=7):
-			ballbds=0
-			ballbgs=1
-		if (ball_x==7 and ball_y==0):
-			ballbds=0
-			ballhgs=1
-	while (ballhds==1):
-		ballhd()
-		ball_bouge()
-		time.sleep(0.5)
-		if (ball_x==0 and ball_y!=0):
-			ballhds=0
-			ballbds=1
-		if (ball_y==0 and ball_x!=0):
-			ballhds=0
-			ballhgs=1
-		if (ball_x==0 and ball_y==0):
-			ballhds=0
-			ballbgs=1
-	while (ballhgs==1):
-		ballhg()
-		ball_bouge()
-		time.sleep(0.5)
-		if (ball_y==7):
-			continuer=False
-		if (ball_x==0 and ball_y!=7):
-			ballhgs=0
-			ballbgs=1
-	while (ballbgs==1):
-		ballbg()
-		ball_bouge()
-		time.sleep(0.5)
-		if (ball_y==7):
-			continuer=False
-		if (ball_x==7 and ball_y!=7):
-			ballbgs=0
-			ballhds=1
+
 	for event in sense.stick.get_events():
+		while (ballbds==1):
+			ballbd()
+			ball_bouge()
+			time.sleep(0.5)
+			if (ball_x==7 and ball_y!=0):
+				ballbds=0
+				ballhds=1
+			if (ball_y==0 and ball_x!=7):
+				ballbds=0
+				ballbgs=1
+			if (ball_x==7 and ball_y==0):
+				ballbds=0
+				ballhgs=1
+		while (ballhds==1):
+			ballhd()
+			ball_bouge()
+			time.sleep(0.5)
+			if (ball_x==0 and ball_y!=0):
+				ballhds=0
+				ballbds=1
+			if (ball_y==0 and ball_x!=0):
+				ballhds=0
+				ballhgs=1
+			if (ball_x==0 and ball_y==0):
+				ballhds=0
+				ballbgs=1
+		while (ballhgs==1):
+			ballhg()
+			ball_bouge()
+			time.sleep(0.5)
+			if (ball_y==7):
+				continuer=False
+			if (ball_x==0 and ball_y!=7):
+				ballhgs=0
+				ballbgs=1
+		while (ballbgs==1):
+			ballbg()
+			ball_bouge()
+			time.sleep(0.5)
+			if (ball_y==7):
+				continuer=False
+			if (ball_x==7 and ball_y!=7):
+				ballbgs=0
+				ballhds=1
 		if event.direction=="up":
 			bacx-=1
 			bacxh=bacx-1
