@@ -21,7 +21,7 @@ while True:
 			bacx-=1
 			bacxh=bacx-1
 			bacxb=bacx+1
-			sense.clear()
+			sense.set_pixel((bacxb+1),7,0,0,0)
 			sense.set_pixel(bacxh,7,132,32,87)
 			sense.set_pixel(bacx,7,132,32,87)
 			sense.set_pixel(bacxb,7,132,32,87)

@@ -20,8 +20,8 @@ def ball_bouge():
   ball_x=ball_x+x_sens
   ball_y=ball_y+y_sens
   sense.set_pixel(ball_x,ball_y,132,32,84)
-
-bacx=5
+  
+bacx=4
 
 sense.set_pixel(bacx,7,132,32,87)
 
@@ -34,16 +34,40 @@ def bac():
     sense.set_pixel((bacx+2),7,0,0,0)
   if (bacx>2):
     sense.set_pixel((bacx-2),7,0,0,0)
-
+    
+def up():
+  global bacx
+  if bacx>1:
+    bacx-=1
+    bac()
+  
+def down():
+  global bacx
+  if bacx<6:
+    bacx+=1
+    bac()
 continuer=True
 
 while continuer:
-  ball_bouge()
-  bac()
+  
   if (ball_x==7):
     x_sens=-1
   if (ball_x==0):
     x_sens=1
   if (ball_y==0):
     y_sens=1
-    
+  if (ball_y==6 and (ball_x==bacx or ball_x==(bacx+1) or ball_x==(bacx-1))):
+    y_sens=-1
+  if (ball_y==6) and (ball_x!=bacx and ball_x!=(bacx+1) and ball_x!=(bacx-1)):
+    sense.clear()
+    sense.show_message("Perdu")
+    continuer=False
+    break
+  for event in sense.stick.get_events():
+    if event.direction=="up":
+      up()
+    if event.direction=="down":
+      down()
+            
+  ball_bouge()
+  bac()
