@@ -70,14 +70,14 @@ while continuer:
     sense.show_message("Perdu")
     continuer=False
     break
-    acceleration = sense.get_accelerometer_raw()
-    x = acceleration['x']
-    x=round(x, 0)
-    print(x)
-    if (x==-1):
-        down()
-    if (x==1):
-        up()
+  acceleration = sense.get_accelerometer_raw()
+  x = acceleration['x']
+  x=round(x, 0)
+  print(x)
+  if (x==0):
+    up()
+  if (x==1):
+    down()
             
   ball_bouge()
   bac()
