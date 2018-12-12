@@ -39,22 +39,23 @@ def bac():
     sense.set_pixel((bacx+2),7,0,0,0)
   if (bacx>2):
     sense.set_pixel((bacx-2),7,0,0,0)
-    
+
 def up():
   global bacx
   if bacx>1:
     bacx-=1
     bac()
-  
+
 def down():
   global bacx
   if bacx<6:
     bacx+=1
     bac()
+
 continuer=True
 
 while continuer:
-  
+
   if (ball_x==7):
     x_sens=-1
   if (ball_x==0):
@@ -69,11 +70,14 @@ while continuer:
     sense.show_message("Perdu")
     continuer=False
     break
-  for event in sense.stick.get_events():
-    if event.direction=="up":
-      up()
-    if event.direction=="down":
-      down()
+    acceleration = sense.get_accelerometer_raw()
+    x = acceleration['x']
+    x=round(x, 0)
+    print(x)
+    if (x==-1):
+        down()
+    if (x==1):
+        up()
             
   ball_bouge()
   bac()
